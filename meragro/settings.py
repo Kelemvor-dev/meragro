@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS=['*']
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ["https://pacific-coast-78888.herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ['https://pacific-coast-78888.herokuapp.com','https://meragro.herokuapp.com']
 
 
 # Application definition
