@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--%y_sn_5y)d&vcxn-sa7h83x@d_k8v0++o0pa=5&y=81lcd _w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['meragro.herokuapp.com','localhost','127.0.0.1']
+ALLOWED_HOSTS=['*']
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = ["https://pacific-coast-78888.herokuapp.com"]
 
