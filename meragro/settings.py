@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'meragro.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.pg2',
+        'NAME': 'd9k5fddq9mjhn8',
+        'HOST': 'ec2-54-208-104-27.compute-1.amazonaws.com',
+        'USER': 'qreipjxekwrhxx',
+        'PASSWORD': '9bb9964fcedb0a1c3d250d6904e0a0eb315eab613ea5db79ca5414c34ed67a71',       
+        'DATABSE_PORT': '5432',
     }
 }
 
