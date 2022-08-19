@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['meragro.herokuapp.com','localhost','127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['https://pacific-coast-78888.herokuapp.com']
+
 
 # Application definition
 
