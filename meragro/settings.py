@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--%y_sn_5y)d&vcxn-sa7h83x@d_k8v0++o0pa=5&y=81l_wfa8'
+SECRET_KEY = 'django-insecure--%y_sn_5y)d&vcxn-sa7h83x@d_k8v0++o0pa=5&y=81lcd _wfa8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'meragro.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.pg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd9k5fddq9mjhn8',
         'HOST': 'ec2-54-208-104-27.compute-1.amazonaws.com',
         'USER': 'qreipjxekwrhxx',
