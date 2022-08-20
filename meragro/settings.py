@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os.path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'meragro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,7 +85,7 @@ DATABASES = {
         'NAME': 'd9k5fddq9mjhn8',
         'HOST': 'ec2-54-208-104-27.compute-1.amazonaws.com',
         'USER': 'qreipjxekwrhxx',
-        'PASSWORD': '9bb9964fcedb0a1c3d250d6904e0a0eb315eab613ea5db79ca5414c34ed67a71',       
+        'PASSWORD': '9bb9964fcedb0a1c3d250d6904e0a0eb315eab613ea5db79ca5414c34ed67a71',
         'DATABSE_PORT': '5432',
     }
 }
@@ -124,7 +125,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

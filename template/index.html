@@ -1,0 +1,259 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+    <link rel="icon" type="image/jpg" href="/static/favicon.png"/>
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Cookie|Open+Sans:400,600,700,800,900|Poppins:300,400,500,600,700|Playfair+Display:400,400i,700,700i,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" type="text/css">
+	{% block css %}
+		<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css" />
+		<link rel="stylesheet" href="{% static 'style.css' %}" type="text/css" />
+
+		<link rel="stylesheet" href="{% static 'css/font-icons.css' %}" type="text/css" />
+		<link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css" />
+		<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css" />
+		<link rel="stylesheet" href="{% static 'css/swiper.css' %}" type="text/css" />
+
+		<link rel="stylesheet" href="{% static 'css/et-line.css' %}" type="text/css" />
+
+		<!-- restaurant Demo Specific Stylesheet -->
+		<link rel="stylesheet" href="{% static 'css/meragro.css' %}" type="text/css" />
+		<link rel="stylesheet" href="{% static 'css/fonts.css' %}" type="text/css" />
+		<!-- / -->
+
+		<link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link rel="stylesheet" href="{% static 'css/colors.css' %}" type="text/css" />
+	{% endblock %}
+	<!-- Document Title
+	============================================= -->
+	<title>Meragro | Tenjo</title>
+
+</head>
+
+<body class="stretched sticky-footer page-transition" data-loader-html="<span class='pizza'> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> </span>">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix" style="background-color: #005a5b;">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="transparent-header" data-sticky-shrink="false">
+			<div id="header-wrap">
+				<div class="container">
+					<div class="header-row justify-content-lg-between">
+
+						<!-- Logo
+						============================================= -->
+						<div id="logo" class="col-auto me-lg-0 order-lg-2">
+							<a href="demo-restaurant.html" class="standard-logo"><img src="{% static 'images/logo.png' %}" alt="Canvas Logo"></a>
+							<a href="demo-restaurant.html" class="retina-logo"><div class="logo-mobil-mer"><img src="{% static 'images/logo@2x.png' %}" alt="Canvas Logo"></div></a>
+						</div><!-- #logo end -->
+
+                        <div class="header-misc">
+							<a href="login-register.html" class="button button-border button-rounded btn-config-profile-mer"><i class="icon-user4"></i></a>
+                            <div class="dropdown mx-3 me-lg-0">
+								<a href="#" class="button button-mer-profile button-border button-rounded dropdown-toggle btn-config-profile-mer" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user-cog"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
+									<a class="dropdown-item text-start" href="#">Perfil</a>
+									<a class="dropdown-item text-start" href="#">Dashboard</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item text-start" href="#">Cerrar sesión <i class="icon-signout"></i></a>
+								</ul>
+							</div>
+                                     <!-- Top Cart
+							============================================= -->
+							<div id="top-cart" class="header-misc-icon d-none d-sm-block cart-mer-button">
+								<a href="#" id="top-cart-trigger"><i class="bi-cart4"></i><span class="top-cart-number">5</span></a>
+								<div class="top-cart-content">
+									<div class="top-cart-title">
+										<h4>Carrito de compras</h4>
+									</div>
+									<div class="top-cart-items">
+										<div class="top-cart-item">
+											<div class="top-cart-item-image">
+												<a href="#"><img src="{% static 'images/shop/small/1.jpg' %}" alt="Blue Round-Neck Tshirt" /></a>
+											</div>
+											<div class="top-cart-item-desc">
+												<div class="top-cart-item-desc-title">
+													<a href="#">Blue Round-Neck Tshirt with a Button</a>
+													<span class="top-cart-item-price d-block">$19.99</span>
+												</div>
+												<div class="top-cart-item-quantity">x 2</div>
+											</div>
+										</div>
+										<div class="top-cart-item">
+											<div class="top-cart-item-image">
+												<a href="#"><img src="{% static 'images/shop/small/6.jpg' %}" alt="Light Blue Denim Dress" /></a>
+											</div>
+											<div class="top-cart-item-desc">
+												<div class="top-cart-item-desc-title">
+													<a href="#">Light Blue Denim Dress</a>
+													<span class="top-cart-item-price d-block">$24.99</span>
+												</div>
+												<div class="top-cart-item-quantity">x 3</div>
+											</div>
+										</div>
+									</div>
+									<div class="top-cart-action">
+										<span class="top-checkout-price">$114.95</span>
+										<a href="#" class="button button-3d button-small m-0">Ir a comprar</a>
+									</div>
+								</div>
+							</div><!-- #top-cart end -->
+						</div>
+						<div id="primary-menu-trigger">
+							<svg class="svg-trigger" viewBox="0 0 100 100"><path d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path><path d="m 30,50 h 40"></path><path d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path></svg>
+						</div>
+
+						<!-- Primary Navigation
+						============================================= -->
+						<nav class="primary-menu col-lg-4 order-lg-1">
+
+							<ul class="menu-container">
+
+							</ul>
+
+						</nav>
+						<nav class="primary-menu col-lg-4 order-lg-3">
+
+							<ul class="menu-container justify-content-lg-end">
+                                <li class="menu-item"><a class="menu-link color" href="./"><div>Home</div></a></li>
+								<li class="menu-item"><a class="menu-link" href="productos.html"><div>Productos</div></a></li>
+							</ul>
+
+						</nav><!-- #primary-menu end -->
+					</div>
+				</div>
+			</div>
+			<div class="header-wrap-clone"></div>
+		</header><!-- #header end -->
+
+		{% block main %}
+		{% endblock %}
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark" style="background: url('{% static 'images/footer-bg.jpg' %}')  repeat center center / cover; background-size: auto 100%;; padding: 20px 0 22px">
+			<!-- Copyrights
+			============================================= -->
+			<div id="copyrights" class="bg-transparent pb-4" style="padding: 0 !important;">
+				<div class="container clearfix">
+
+					<div class="row justify-content-between">
+						<div class="col-12 col-md-auto text-center text-md-start">
+							<span class="font-primary">&copy; <a href="https://www.linkedin.com/in/jeyson-andres-garcia-carvajal-38a583141/" target="_blank">Jeyson Garcia</a>. 2022. All Rights Reserved.</span>
+						</div>
+					</div>
+
+				</div>
+			</div><!-- #copyrights end -->
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-line-arrow-up"></div>
+	{% block js %}
+		<!-- JavaScripts
+		============================================= -->
+		<script src="{% static 'js/jquery.js' %}"></script>
+		<script src="{% static 'js/plugins.min.js' %}"></script>
+
+		<!-- Footer Scripts
+		============================================= -->
+		<script src="{% static 'js/functions.js' %}"></script>
+	{% endblock %}
+	<!-- Custom Carousel JS File -->
+	<script>
+		var carouselRTL = false;
+
+		if( $('body').hasClass('rtl') ) { carouselRTL = true; }
+
+		$(window).on( 'pluginCarouselReady', function(){
+			$('#food-menu-carousel').owlCarousel({
+				animateIn: 'fadeIn',
+				animateOut: 'fadeOut',
+				items: 1,
+				mouseDrag: false,
+				dotsContainer: '#item-thumb',
+				rtl: carouselRTL
+			});
+
+			$('#dessert-menu-carousel').owlCarousel({
+				animateIn: 'fadeIn',
+				animateOut: 'fadeOut',
+				items: 1,
+				mouseDrag: false,
+				dotsContainer: '#item-thumb1',
+				rtl: carouselRTL
+			});
+		});
+		jQuery(document).ready( function($){
+			$(window).on( 'pluginIsotopeReady', function(){
+				$('#shop').isotope({
+					transitionDuration: '0.65s',
+					getSortData: {
+						name: '.product-title',
+						price_lh: function( itemElem ) {
+							if( $(itemElem).find('.product-price').find('ins').length > 0 ) {
+								var price = $(itemElem).find('.product-price ins').text();
+							} else {
+								var price = $(itemElem).find('.product-price').text();
+							}
+
+							priceNum = price.split("$");
+
+							return parseFloat( priceNum[1] );
+						},
+						price_hl: function( itemElem ) {
+							if( $(itemElem).find('.product-price').find('ins').length > 0 ) {
+								var price = $(itemElem).find('.product-price ins').text();
+							} else {
+								var price = $(itemElem).find('.product-price').text();
+							}
+
+							priceNum = price.split("$");
+
+							return parseFloat( priceNum[1] );
+						}
+					},
+					sortAscending: {
+						name: true,
+						price_lh: true,
+						price_hl: false
+					}
+				});
+
+				$('.custom-filter:not(.no-count)').children('li:not(.widget-filter-reset)').each( function(){
+					var element = $(this),
+						elementFilter = element.children('a').attr('data-filter'),
+						elementFilterContainer = element.parents('.custom-filter').attr('data-container');
+
+					elementFilterCount = Number( jQuery(elementFilterContainer).find( elementFilter ).length );
+
+					element.append('<span>'+ elementFilterCount +'</span>');
+
+				});
+
+				$('.shop-sorting li').click( function() {
+					$('.shop-sorting').find('li').removeClass( 'active-filter' );
+					$(this).addClass( 'active-filter' );
+					var sortByValue = $(this).find('a').attr('data-sort-by');
+					$('#shop').isotope({ sortBy: sortByValue });
+					return false;
+				});
+			});
+		});
+	</script>
+
+</body>
+</html>

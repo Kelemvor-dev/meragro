@@ -1,0 +1,209 @@
+{% extends "index.html" %}
+{% load static i18n %}
+
+{% block main %}
+<!-- Slider
+============================================= -->
+<section id="slider" class="slider-element slider-parallax swiper_wrapper min-vh-60 min-vh-md-100 include-header">
+    <div class="slider-inner">
+
+        <div class="swiper-container swiper-parent">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="container">
+                        <div class="slider-caption slider-caption-center" style="margin-top: -30px;">
+                            <div>
+                                <img data-animate="fadeIn" src="{% static 'images/huerta.png' %}" alt="Image" style="width: 120px; margin-bottom: 10px;">
+                                <h2 class="font-secondary ls0 fw-normal nott" data-animate="fadeIn" data-delay="400">Productos 100% artesanales</h2>
+                                <p class="d-none d-sm-block font-primary" data-animate="fadeIn" data-delay="800">Productos exclusivos solo para ti <br>hechos por nuestros mejores artesanos </p>
+                                <div class="static-content" style="position: relative; display: flex; justify-content: center; flex-direction: row; margin-top: 30px" data-animate="fadeIn" data-delay="1000">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-wrap">
+                        <video id="slide-video" poster="{% static 'images/videos/explore-poster.jpg' %}" preload="auto" loop autoplay muted>
+                            <source src="{% static 'images/videos/explore.webm' type='video/webm' %}" />
+                            <source src="{% static 'images/videos/explore.mp4' type='video/mp4' %}" />
+                        </video>
+                        <div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-arrow-left"><i class="icon-angle-left"></i></div>
+            <div class="slider-arrow-right"><i class="icon-angle-right"></i></div>
+        </div>
+
+        <a href="#" data-scrollto="#content" data-offset="100" class="one-page-arrow dark" style="color: white;"><i class="icon-angle-down infinite animated fadeInDown"></i></a>
+
+    </div>
+</section>
+<!-- Content
+============================================= -->
+<section id="content">
+
+    <div style="position: absolute; top: 0; left: 0; width: 100%; z-index: 3; background: url('{% static 'images/sketch.png' %}') repeat center bottom; background-size: auto 100%; height: 40px; margin-top: -40px;"></div>
+
+    <div class="content-wrap" style="overflow: visible;">
+
+        <div class="section m-0 clearfix" style="padding: 40px 0; background: url('{% static 'images/sections/6.jpg' %}') center center no-repeat; background-size: 100% auto">
+            <div class="container">
+
+                <div class="heading-block border-bottom-0 bottommargin-sm">
+                    <h2 class="font-secondary color nott" style="font-size: 52px;">Nuestros productos destacados</h2>
+                </div>
+            </div>
+        </div>
+
+        <!--- DIV BONITO
+        <div class="section mb-0" style="background: #FFF url('{% static 'images/sections/5.jpg') no-repeat top left / cover; padding: 60px 0; border-top: 1px solid #EEE;">
+            <div class="container clearfix">
+                <div class="heading-block center mb-0 border-bottom-0">
+                    <span class="font-primary" style="font-size: 16px; color: #888">Tasty &amp; Healthy</span>
+                    <h3 class="nott font-secondary ls0" style="font-size: 60px;">Our Food Menu</h3>
+                </div>
+            </div>
+        </div>
+        -->
+
+        <div class="section food-menu mt-0 p-0" style="padding-top: 40px !important;">
+            <div class="container-fluid">
+                <div class="row align-items-stretch clearfix">
+                    <div class="col-lg-7 clearfix">
+                        <div class="vertical-middle">
+                            <div class="col-padding clearfix">
+                                <div><div id="item-thumb" class="item-thumb"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5" style="background-color: #FFF; padding: 0; box-shadow: -4px 1px 15px 3px rgba(0,0,0,0.07);">
+                        <div id="food-menu-carousel" class="menu-carousel owl-carousel image-carousel food-menu-carousel carousel-widget customjs">
+
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/1.jpg' %}" alt="Image 1">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;19.99</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/2.jpg' %}" alt="Image 2">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;11.59</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/3.jpg' %}" alt="Image 3">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;8.99</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/4.jpg' %}" alt="Image 4">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;22.99</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/5.jpg' %}" alt="Image 1">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;19.99</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/6.jpg' %}" alt="Image 2">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;14.99</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    <div class="food-price color font-primary mt-3">&dollar;14.99</div>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/7.jpg' %}" alt="Image 3">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;11.99</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/8.jpg' %}" alt="Image 4">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;33.99</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="oc-item">
+                                <img class="topmargin-sm" src="{% static 'images/items/food/9.jpg' %}" alt="Image 4">
+                                <div class="food-content clearfix">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">&dollar;7.99</div>
+                                    </div>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3; background: url('{% static 'images/sketch-header.png' %}') repeat center bottom; background-size: auto 100%; height: 40px; margin-bottom: -10px;"></div>
+</section><!-- #content end -->
+{% endblock %}
