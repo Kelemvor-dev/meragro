@@ -49,9 +49,15 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     profile_pic = models.ImageField(
-        upload_to='users/', default='users/default.png')
+        upload_to='user/', default='user/default.png')
     phone = models.CharField(max_length=100)
-    id_rol = models.CharField(max_length=100)
+
+    class Roles(models.IntegerChoices):
+        Adminstrador = 1
+        Vendedor = 2
+        Comprador = 3
+
+    id_rol = models.IntegerField(choices=Roles.choices)
 
     slug = models.SlugField(max_length=255, unique=True)
 
@@ -67,9 +73,6 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
-
-    def get_absolute_url(self):
-        return reverse('users:user_detail', args=[self.slug])
 
     def save(self, *args, **kwargs):
         if not self.slug:

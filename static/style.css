@@ -16742,10 +16742,6 @@ label.checkbox { padding-left: 20px; }
     padding: 20px;
 }
 .btn-config-profile-mer{
-	background-color: #005a5b !important;
-    color: white !important;
-    border-color: #005a5b !important;
-	padding: 5px;
-    font-size: 15px;
+	padding: 10px;
     line-height: 20px;
 }

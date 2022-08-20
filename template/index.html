@@ -38,7 +38,7 @@
 
 </head>
 
-<body class="stretched sticky-footer page-transition" data-loader-html="<span class='pizza'> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> </span>">
+<body class="stretched sticky-footer page-transition" data-loader-html="<span class='loader'> <span class='slice'></span>">
 
 	<!-- Document Wrapper
 	============================================= -->
@@ -54,61 +54,70 @@
 						<!-- Logo
 						============================================= -->
 						<div id="logo" class="col-auto me-lg-0 order-lg-2">
-							<a href="demo-restaurant.html" class="standard-logo"><img src="{% static 'images/logo.png' %}" alt="Canvas Logo"></a>
-							<a href="demo-restaurant.html" class="retina-logo"><div class="logo-mobil-mer"><img src="{% static 'images/logo@2x.png' %}" alt="Canvas Logo"></div></a>
+							<a href="{% url 'home:home' %}" class="standard-logo"><img src="{% static 'images/logo.png' %}" alt="Canvas Logo"></a>
+							<a href="{% url 'home:home' %}" class="retina-logo"><div class="logo-mobil-mer"><img src="{% static 'images/logo@2x.png' %}" alt="Canvas Logo"></div></a>
 						</div><!-- #logo end -->
 
                         <div class="header-misc">
-							<a href="login-register.html" class="button button-border button-rounded btn-config-profile-mer"><i class="icon-user4"></i></a>
-                            <div class="dropdown mx-3 me-lg-0">
-								<a href="#" class="button button-mer-profile button-border button-rounded dropdown-toggle btn-config-profile-mer" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-user-cog"></i></a>
-								<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
-									<a class="dropdown-item text-start" href="#">Perfil</a>
-									<a class="dropdown-item text-start" href="#">Dashboard</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item text-start" href="#">Cerrar sesión <i class="icon-signout"></i></a>
-								</ul>
-							</div>
-                                     <!-- Top Cart
-							============================================= -->
-							<div id="top-cart" class="header-misc-icon d-none d-sm-block cart-mer-button">
-								<a href="#" id="top-cart-trigger"><i class="bi-cart4"></i><span class="top-cart-number">5</span></a>
-								<div class="top-cart-content">
-									<div class="top-cart-title">
-										<h4>Carrito de compras</h4>
-									</div>
-									<div class="top-cart-items">
-										<div class="top-cart-item">
-											<div class="top-cart-item-image">
-												<a href="#"><img src="{% static 'images/shop/small/1.jpg' %}" alt="Blue Round-Neck Tshirt" /></a>
-											</div>
-											<div class="top-cart-item-desc">
-												<div class="top-cart-item-desc-title">
-													<a href="#">Blue Round-Neck Tshirt with a Button</a>
-													<span class="top-cart-item-price d-block">$19.99</span>
-												</div>
-												<div class="top-cart-item-quantity">x 2</div>
-											</div>
-										</div>
-										<div class="top-cart-item">
-											<div class="top-cart-item-image">
-												<a href="#"><img src="{% static 'images/shop/small/6.jpg' %}" alt="Light Blue Denim Dress" /></a>
-											</div>
-											<div class="top-cart-item-desc">
-												<div class="top-cart-item-desc-title">
-													<a href="#">Light Blue Denim Dress</a>
-													<span class="top-cart-item-price d-block">$24.99</span>
-												</div>
-												<div class="top-cart-item-quantity">x 3</div>
-											</div>
-										</div>
-									</div>
-									<div class="top-cart-action">
-										<span class="top-checkout-price">$114.95</span>
-										<a href="#" class="button button-3d button-small m-0">Ir a comprar</a>
-									</div>
+
+							{% if user.is_authenticated %}
+								<div class="dropdown mx-3 me-lg-0">
+									<a href="#" class="btn-config-profile-mer" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><img src={{ user.profile_pic.url }} class="rounded-circle" height="30" width='30' alt="" loading="lazy" /> {{ user.username }}</a>
+									<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
+										<a class="dropdown-item text-start" href="{% url 'users:profile' %}">Perfil</a>
+										<a class="dropdown-item text-start" href="#">Dashboard</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item text-start" href="{% url 'users:logout' %}">Cerrar sesión <i class="icon-signout"></i></a>
+									</ul>
 								</div>
-							</div><!-- #top-cart end -->
+								{% if user.id_rol == '3' %}
+										<!-- Top Cart
+									============================================= -->
+									<div id="top-cart" class="header-misc-icon d-none d-sm-block cart-mer-button">
+										<a href="#" id="top-cart-trigger"><i class="bi-cart4"></i><span class="top-cart-number">5</span></a>
+										<div class="top-cart-content">
+											<div class="top-cart-title">
+												<h4>Carrito de compras</h4>
+											</div>
+											<div class="top-cart-items">
+												<div class="top-cart-item">
+													<div class="top-cart-item-image">
+														<a href="#"><img src="{% static 'images/shop/small/1.jpg' %}" alt="Blue Round-Neck Tshirt" /></a>
+													</div>
+													<div class="top-cart-item-desc">
+														<div class="top-cart-item-desc-title">
+															<a href="#">Blue Round-Neck Tshirt with a Button</a>
+															<span class="top-cart-item-price d-block">$19.99</span>
+														</div>
+														<div class="top-cart-item-quantity">x 2</div>
+													</div>
+												</div>
+												<div class="top-cart-item">
+													<div class="top-cart-item-image">
+														<a href="#"><img src="{% static 'images/shop/small/6.jpg' %}" alt="Light Blue Denim Dress" /></a>
+													</div>
+													<div class="top-cart-item-desc">
+														<div class="top-cart-item-desc-title">
+															<a href="#">Light Blue Denim Dress</a>
+															<span class="top-cart-item-price d-block">$24.99</span>
+														</div>
+														<div class="top-cart-item-quantity">x 3</div>
+													</div>
+												</div>
+											</div>
+											<div class="top-cart-action">
+												<span class="top-checkout-price">$114.95</span>
+												<a href="#" class="button button-3d button-small m-0">Ir a comprar</a>
+											</div>
+										</div>
+									</div><!-- #top-cart end -->
+								{% else %}
+
+								{% endif %}
+          					{% else %}
+          						<a href="{% url 'users:userlogin' %}" class="button button-mini button-border button-rounded"><i class="icon-user4"></i>Login</a>
+          					{% endif %}
+
 						</div>
 						<div id="primary-menu-trigger">
 							<svg class="svg-trigger" viewBox="0 0 100 100"><path d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path><path d="m 30,50 h 40"></path><path d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path></svg>
@@ -126,7 +135,7 @@
 						<nav class="primary-menu col-lg-4 order-lg-3">
 
 							<ul class="menu-container justify-content-lg-end">
-                                <li class="menu-item"><a class="menu-link color" href="./"><div>Home</div></a></li>
+                                <li class="menu-item"><a class="menu-link color" href="{% url 'home:home' %}"><div>Home</div></a></li>
 								<li class="menu-item"><a class="menu-link" href="productos.html"><div>Productos</div></a></li>
 							</ul>
 
