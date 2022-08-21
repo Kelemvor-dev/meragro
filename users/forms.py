@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import ModelForm
+from .models import UserProfile
 
 
 class UserLoginForm(forms.Form):
@@ -22,6 +24,10 @@ class UserLoginForm(forms.Form):
 
 
 class UserSignUpForm(forms.Form):
+    profile_pic = forms.ImageField(
+        widget=forms.FileInput(
+            attrs={'class': 'form-control-file'}
+        ))
 
     username = forms.CharField(
         max_length=100,
@@ -31,6 +37,13 @@ class UserSignUpForm(forms.Form):
                 'class': 'form-control'
             }
         ))
+
+    CHOICES = (('', 'Seleccionar'), ('2', 'Vendedor'), ('3', 'Comprador'),)
+    id_rol = forms.ChoiceField(choices=CHOICES,
+                               widget=forms.Select(
+                                   attrs={
+                                       'class': 'form-select'
+                                   }))
 
     email = forms.EmailField(
         widget=forms.TextInput(
@@ -90,3 +103,55 @@ class UserSignUpForm(forms.Form):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Las Contraseñas no coinciden')
         return cd['password2']
+
+
+class UserEditProfileForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = UserProfile
+        fields = 'profile_pic', 'email', 'first_name', 'last_name', 'phone',
+        widgets = {
+            'profile_pic': forms.FileInput(
+                attrs={
+                    'class': 'form-control-file',
+                }
+            ),
+            'email': forms.TextInput(
+                attrs={
+                    'id': 'signupEmail',
+                    'class': 'form-control'
+                }
+            ),
+            'first_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'phone': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+        }
+        exclude = ['user_permissions', 'last_login', 'date_joined', 'is_superuser', 'is_active', 'is_staff', 'groups',
+                   'username', 'password']
+
+    def save(self, commit=True):
+        data = {}
+        form = super()
+        try:
+            if form.is_valid():
+                u = form.save(commit=False)
+                u.save()
+            else:
+                data['error'] = form.errors
+        except Exception as e:
+            data['error'] = str(e)
+        return data

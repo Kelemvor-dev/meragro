@@ -4,12 +4,30 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from .models import UserProfile
 
-from .forms import UserLoginForm, UserSignUpForm
+from .forms import UserLoginForm, UserSignUpForm, UserEditProfileForm
 
 
 def accontView(request):
     return render(request, "user/login-register.html")
+
+
+def editUsuProfile(request):
+    return render(request, "user/edit-profile.html")
+
+
+def editProfile_view(request):
+    obj = UserProfile.objects.get(email=request.user.email)
+    edit_form = UserEditProfileForm(request.POST, request.FILES, instance=obj or None)
+    if edit_form.is_valid():
+        edit_form.save()
+        messages.success(request, 'Se guardaron los datos correctamente')
+        return redirect('users:edit-profile')
+    else:
+        messages.error(request, edit_form.errors)
+        return redirect('users:edit-profile')
+
 
 def login_view(request):
     login_form = UserLoginForm(request.POST or None)
@@ -19,20 +37,20 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Has iniciado sesion correctamente')
             return redirect('home:home')
         else:
             messages.warning(
-                request, 'Correo Electronico o Contrasena invalida')
-            return redirect('home:home')
+                request, login_form.errors)
+            return redirect('users:userlogin')
 
-    messages.error(request, 'Formulario Invalido')
-    return redirect('home:home')
+    messages.error(request, login_form.errors)
+    return redirect('users:userlogin')
 
 
 def signup_view(request):
-    signup_form = UserSignUpForm(request.POST or None)
+    signup_form = UserSignUpForm(request.POST, request.FILES or None)
     if signup_form.is_valid():
+        profile_pic = signup_form.cleaned_data.get('profile_pic')
         username = signup_form.cleaned_data.get('username')
         email = signup_form.cleaned_data.get('email')
         first_name = signup_form.cleaned_data.get('first_name')
@@ -42,6 +60,7 @@ def signup_view(request):
         password = signup_form.cleaned_data.get('password')
         try:
             user = get_user_model().objects.create(
+                profile_pic=profile_pic,
                 username=username,
                 email=email,
                 first_name=first_name,
@@ -57,6 +76,9 @@ def signup_view(request):
         except Exception as e:
             print(e)
             return JsonResponse({'detail': f'{e}'})
+    else:
+        messages.error(request, signup_form.errors)
+        return redirect('users:userlogin')
 
 
 def logout_view(request):
@@ -67,4 +89,3 @@ def logout_view(request):
 @login_required(login_url='home:home')
 def profile_view(request):
     return render(request, 'user/profile.html')
-

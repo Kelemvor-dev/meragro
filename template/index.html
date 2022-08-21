@@ -1,5 +1,5 @@
-{% load static i18n %}
 <!DOCTYPE html>
+{% load static i18n %}
 <html dir="ltr" lang="en-US">
 <head>
 
@@ -39,7 +39,6 @@
 </head>
 
 <body class="stretched sticky-footer page-transition" data-loader-html="<span class='loader'> <span class='slice'></span>">
-
 	<!-- Document Wrapper
 	============================================= -->
 	<div id="wrapper" class="clearfix" style="background-color: #005a5b;">
@@ -61,11 +60,10 @@
                         <div class="header-misc">
 
 							{% if user.is_authenticated %}
-								<div class="dropdown mx-3 me-lg-0">
+								<div class="dropdown">
 									<a href="#" class="btn-config-profile-mer" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><img src={{ user.profile_pic.url }} class="rounded-circle" height="30" width='30' alt="" loading="lazy" /> {{ user.username }}</a>
 									<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
 										<a class="dropdown-item text-start" href="{% url 'users:profile' %}">Perfil</a>
-										<a class="dropdown-item text-start" href="#">Dashboard</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item text-start" href="{% url 'users:logout' %}">Cerrar sesión <i class="icon-signout"></i></a>
 									</ul>
@@ -148,6 +146,12 @@
 
 		{% block main %}
 		{% endblock %}
+		<div class="section mb-0" style="padding: 60px 0; border-top: 1px solid #EEE;">
+            <div class="container clearfix">
+                <div class="heading-block center mb-0 border-bottom-0">
+                </div>
+            </div>
+        </div>
 		<!-- Footer
 		============================================= -->
 		<footer id="footer" class="dark" style="background: url('{% static 'images/footer-bg.jpg' %}')  repeat center center / cover; background-size: auto 100%;; padding: 20px 0 22px">

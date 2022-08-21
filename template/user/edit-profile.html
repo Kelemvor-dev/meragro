@@ -1,0 +1,84 @@
+{% extends "index.html" %}
+{% load static i18n %}
+
+{% block main %}
+<div class="section mb-0" style="padding: 60px 0; border-top: 1px solid #EEE;">
+    <div class="container clearfix">
+        <div class="heading-block center mb-0 border-bottom-0">
+            <h3 class="nott font-secondary ls0" style="font-size: 60px;">Editar Perfil</h3>
+        </div>
+    </div>
+</div>
+<section id="content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-dismissible {{ message.tags }} mb-0">
+                                        {{ message }} <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-hidden="true"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+            <div class="col-lg-7 col-md-10">
+                <div class="card my-5 shadow-sm">
+                    <div class="card-body p-5">
+                        <form id="register-form" name="register-form" class="row"
+                              action="{% url 'users:update-profile' %}" method="post"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-6 form-group">
+                                <label for="register-form-name">Imagen de perfil:</label><br>
+                                <img src="{{ user.profile_pic.url }}" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;">
+                                <input type="file" value="{{ user.profile_pic }}" name="profile_pic" class="form-control-file" accept="image/*" id="id_profile_pic">
+                            </div>
+                            <div class="w-100"></div>
+
+                            <div class="col-6 form-group">
+                                <label for="register-form-name">Nombres:</label>
+                                <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}"
+                                       maxlength="100"
+                                       required="" id="id_first_name">
+                            </div>
+                            <div class="col-6 form-group">
+                                <label for="register-form-name">Apellidos:</label>
+                                <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}"
+                                       maxlength="100" required=""
+                                       id="id_last_name">
+                            </div>
+
+                            <div class="col-6 form-group">
+                                <label for="register-form-email">Email:</label>
+                                <input type="email" name="email" id="signupEmail" value="{{ user.email }}"
+                                       class="form-control" required="">
+                            </div>
+
+                            <div class="col-6 form-group">
+                                <label for="register-form-phone">Teléfono móvil (Whatsapp):</label>
+                                <input type="text" name="phone" class="form-control" value="{{ user.phone }}"
+                                       maxlength="100" required=""
+                                       id="id_phone">
+                            </div>
+
+                            <div class="w-100"></div>
+
+                            <div class="col-12 form-group">
+                                <button type="submit" class="btn btn-dark m-0" id="register-form-submit"
+                                        name="register-form-submit" value="register">Guardar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

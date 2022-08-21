@@ -4694,7 +4694,6 @@ body:not(.top-search-open) .top-search-parent #primary-menu-trigger {
 	display: -ms-flexbox;
 	display: flex;
 	align-items: center;
-	margin-left: 15px;
 }
 
 .header-misc-element,
@@ -13800,7 +13799,7 @@ h3.titular-title { font-size: 2rem; }
 	flex-grow: 1;
 	max-width: 100%;
 	height: 1px;
-	background-color: #EEE;
+	background-color: #000000;
 }
 
 .divider::before {
@@ -13830,6 +13829,7 @@ h3.titular-title { font-size: 2rem; }
 	line-height: 1;
 	font-size: 18px !important;
 	text-align: center;
+	color: #000000;
 }
 
 .divider a,
