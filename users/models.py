@@ -27,6 +27,28 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
+    def update_user(self, email, first_name, last_name, **other_fields):
+
+        if not email:
+            raise ValueError(_('You must provide an email address'))
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, first_name=first_name,
+                          last_name=last_name, **other_fields)
+        user.save()
+        return user
+
+    def get_user(self, user_id):
+        try:
+            return UserProfile.objects.get(pk=user_id)
+        except UserProfile.DoesNotExist:
+            return None
+
+    def get_all_users(self):
+        try:
+            return UserProfile.objects.get_all_users()
+        except UserProfile.DoesNotExist:
+            return None
     def create_superuser(self, email, first_name, last_name, password, **other_fields):
 
         other_fields.setdefault('is_staff', True)
