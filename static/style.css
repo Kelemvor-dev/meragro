@@ -13060,7 +13060,7 @@ blockquote.float-end {
 	font-size: 1.5rem;
 }
 
-.flip-card-back { background-color: #666; }
+.flip-card-back { background-color: #005A5B; }
 
 .flip-card:hover .flip-card-front,
 .flip-card:hover .flip-card-back {
