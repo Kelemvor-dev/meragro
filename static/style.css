@@ -16745,3 +16745,11 @@ label.checkbox { padding-left: 20px; }
 	padding: 10px;
     line-height: 20px;
 }
+.max-img-mer{
+    height: 130px;
+    overflow: hidden;
+}
+.float-icons-mer{
+    float: right;
+    margin: 10px 3px;
+}

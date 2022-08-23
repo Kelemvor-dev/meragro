@@ -5,5 +5,6 @@ from . import views
 app_name = 'products'
 
 urlpatterns = [
-    path('productsUser/', views.ProductUserView, name='productsUser'),
+    path('createProduct/', views.CreateProductView, name='createProduct'),
+    path('saveProduct/', views.SaveProductView, name='saveProduct'),
 ]

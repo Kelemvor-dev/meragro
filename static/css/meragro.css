@@ -234,7 +234,7 @@ textarea.border-form-control {
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: calc( 100% + 20px );
+		height: calc( 100% + 37px );
 		z-index: -1;
 		background-image: url('/static/images/sketch-header.png') !important;
 		background-color: transparent !important;

@@ -7,14 +7,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .models import UserProfile
 
 from .forms import UserLoginForm, UserSignUpForm, UserEditProfileForm
+from products.models import Product
 
 
 def accontView(request):
     return render(request, "user/login-register.html")
-
-
-def editUsuProfile(request):
-    return render(request, "user/edit-profile.html")
 
 
 def editProfile_view(request):
@@ -88,4 +85,10 @@ def logout_view(request):
 
 @login_required(login_url='home:home')
 def profile_view(request):
-    return render(request, 'user/profile.html')
+    user_id = UserProfile.objects.get(pk=request.user.id)
+    products = Product.objects.filter(id_user_id=user_id)
+    return render(request, 'user/profile.html', {'products': products})
+
+
+def editUsuProfile(request):
+    return render(request, "user/edit-profile.html")
