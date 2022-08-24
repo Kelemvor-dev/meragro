@@ -1,0 +1,85 @@
+{% extends "index.html" %}
+{% load static i18n %}
+{% load humanize %}
+
+{% block main %}
+<div class="section mb-0" style="padding: 60px 0; border-top: 1px solid #EEE;">
+    <div class="container clearfix">
+        <div class="heading-block center mb-0 border-bottom-0">
+            <h3 class="nott font-secondary ls0" style="font-size: 60px;">{{ product.title }}</h3>
+        </div>
+    </div>
+</div>
+<section id="content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-dismissible {{ message.tags }} mb-0">
+                            {{ message }}
+                            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"
+                                    aria-hidden="true"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-10 col-md-10">
+                <div class="product modal-padding">
+                    <div class="row col-mb-50">
+                        <div class="col-md-6">
+                            <div class="product-image">
+                                <div class="slide clone" aria-hidden="true" style="width: 348px; margin-right: 0px; float: left; display: block;">
+                                    <img src="{{ product.image.url }}" alt="Pink Printed Dress" draggable="false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 product-desc">
+                            <div class="product-price">
+                                <ins class="fw-semibold">$ {{ product.price|intcomma }}</ins>
+                            </div>
+                            {% if user.id_rol == '3' %}
+                                <div class="line"></div>
+                                <!-- Product Single - Quantity & Cart Button
+                                ============================================= -->
+                                <form class="cart mb-0" method="post" enctype="multipart/form-data">
+                                    <div class="quantity clearfix">
+                                        <input type="button" value="-" class="minus">
+                                        <input type="text" step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4">
+                                        <input type="button" value="+" class="plus">
+                                    </div>
+                                    <input type="hidden" value="{{ sku }}">
+                                    <button type="submit" class="add-to-cart button m-0">Add to cart</button>
+                                </form><!-- Product Single - Quantity & Cart Button End -->
+                                <div class="line"></div>
+                            {% endif %}
+                            <p>{{ product.content }}</p>
+                            <div class="card product-meta mb-0">
+                                <div class="card-body">
+                                    <span itemprop="productID" class="sku_wrapper">SKU: <span class="sku">{{ sku }}</span></span>
+                                    <span class="posted_in">Categoría: {{ product.id_category }}</span>
+                                </div>
+                            </div>
+                            <a href="javascript:history.back()" class="button button-mini button-border button-rounded" style="float: right;"><span><i class="bi-backspace-fill"></i>Regresar</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3; background: url('{% static 'images/sketch-header.png' %}') repeat center bottom; background-size: auto 100%; height: 40px; margin-bottom: -10px;"></div>
+</section>
+<div class="section mb-0" style="padding: 60px 0; border-top: 1px solid #EEE;">
+    <div class="container clearfix">
+        <div class="heading-block center mb-0 border-bottom-0">
+        </div>
+    </div>
+</div>
+{% endblock %}
