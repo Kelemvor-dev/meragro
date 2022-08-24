@@ -6,6 +6,7 @@ from users.models import UserProfile
 class UserCreateTestCase(TestCase):
     def setUp(self):
         self.user = UserProfile.objects.create_user(
+            id=1,
             username='Test',
             first_name='Test 1',
             last_name='prueba test',
@@ -13,9 +14,9 @@ class UserCreateTestCase(TestCase):
             id_rol='1',
             password='123456'
         )
-        print('Primer Usuario: ', self.user)
 
     def test_user_creation(self):
+        assert self.user.id == 1
         assert self.user.username == 'Test'
         assert self.user.first_name == 'Test 1'
         assert self.user.last_name == 'prueba test'
