@@ -4,10 +4,16 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
-from .models import Product
+from .models import Product, Category
 
 from .forms import CreateProductForm, EditProductForm
 from users.models import UserProfile
+
+
+def ProductsView(request):
+    products = Product.objects.all()
+    categories = Category.objects.all().order_by('name')
+    return render(request, "product/products.html", {'products': products, 'categories': categories})
 
 
 @login_required(login_url='home:home')

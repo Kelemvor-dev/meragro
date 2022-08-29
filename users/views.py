@@ -36,12 +36,11 @@ def login_view(request):
             login(request, user)
             return redirect('home:home')
         else:
-            messages.warning(
-                request, login_form.errors)
+            messages.warning(request, 'Usuario o contraseña incorrectos')
             return redirect('users:userlogin')
-
-    messages.error(request, login_form.errors)
-    return redirect('users:userlogin')
+    else:
+        messages.error(request, login_form.errors)
+        return redirect('users:userlogin')
 
 
 def signup_view(request):

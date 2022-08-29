@@ -233,7 +233,7 @@ small { font-family: 'Lato', sans-serif; }
 	clear: both;
 	position: relative;
 	width: 100%;
-	margin: 4rem 0;
+	margin: 1rem 0;
 	border-top: 1px solid #EEE;
 }
 
@@ -13060,7 +13060,7 @@ blockquote.float-end {
 	font-size: 1.5rem;
 }
 
-.flip-card-back { background-color: #005A5B; }
+.flip-card-back { background-color: #005A5B !important; }
 
 .flip-card:hover .flip-card-front,
 .flip-card:hover .flip-card-back {
@@ -14612,7 +14612,7 @@ body:not(.device-touch) .tagcloud a {
 
 .widget-filter-links .widget-filter-reset {
 	position: absolute;
-	top: 0;
+	top: 21px;
 	left: auto;
 	right: 0;
 	font-size: 12px;
