@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load static i18n %}
+{% load humanize %}
 
 {% block main %}
 <!-- Slider
@@ -24,8 +25,8 @@
                     </div>
                     <div class="video-wrap">
                         <video id="slide-video" poster="{% static 'images/videos/explore-poster.jpg' %}" preload="auto" loop autoplay muted>
-                            <source src="{% static 'images/videos/explore.webm' type='video/webm' %}" />
-                            <source src="{% static 'images/videos/explore.mp4' type='video/mp4' %}" />
+                            <source src="{% static 'images/videos/explore.webm' type='video/webm' %}"/>
+                            <source src="{% static 'images/videos/explore.mp4' type='video/mp4' %}"/>
                         </video>
                         <div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
                     </div>
@@ -47,7 +48,8 @@
 
     <div class="content-wrap" style="overflow: visible;">
 
-        <div class="section m-0 clearfix" style="padding: 40px 0; background: url('{% static 'images/sections/6.jpg' %}') center center no-repeat; background-size: 100% auto">
+
+        <div class="section m-0 clearfix" style="padding: 40px 0; background-size: 100% auto">
             <div class="container">
 
                 <div class="heading-block border-bottom-0 bottommargin-sm">
@@ -55,148 +57,47 @@
                 </div>
             </div>
         </div>
-
-        <!--- DIV BONITO
-        <div class="section mb-0" style="background: #FFF url('{% static 'images/sections/5.jpg') no-repeat top left / cover; padding: 60px 0; border-top: 1px solid #EEE;">
-            <div class="container clearfix">
-                <div class="heading-block center mb-0 border-bottom-0">
-                    <span class="font-primary" style="font-size: 16px; color: #888">Tasty &amp; Healthy</span>
-                    <h3 class="nott font-secondary ls0" style="font-size: 60px;">Our Food Menu</h3>
-                </div>
-            </div>
-        </div>
-        -->
-
-        <div class="section food-menu mt-0 p-0" style="padding-top: 40px !important;">
-            <div class="container-fluid">
-                <div class="row align-items-stretch clearfix">
-                    <div class="col-lg-7 clearfix">
-                        <div class="vertical-middle">
-                            <div class="col-padding clearfix">
-                                <div><div id="item-thumb" class="item-thumb"></div></div>
+        <div class="container clearfix">
+            <div class="section food-menu mt-0 p-0" style="padding-top: 40px !important;">
+                <div class="container-fluid">
+                    <div class="row align-items-stretch clearfix">
+                        <div class="col-lg-7 clearfix">
+                            <div class="vertical-top">
+                                <div class="col-padding clearfix">
+                                    <div>
+                                        <div id="item-thumb" class="item-thumb">
+                                            {% for product in products %}
+                                            {% if forloop.counter == 1 %}
+                                            <button role="button" class="owl-dot active">
+                                                <span style="background-image: url(/media/{{ product.image }});"></span>
+                                            </button>
+                                            {% else %}
+                                            <button role="button" class="owl-dot">
+                                                <span style="background-image: url(/media/{{ product.image }});"></span>
+                                            </button>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-5" style="background-color: #FFF; padding: 0; box-shadow: -4px 1px 15px 3px rgba(0,0,0,0.07);">
-                        <div id="food-menu-carousel" class="menu-carousel owl-carousel image-carousel food-menu-carousel carousel-widget customjs">
+                        <div class="col-lg-5" style="background-color: #FFF; padding: 0; box-shadow: -4px 1px 15px 3px rgba(0,0,0,0.07);">
+                            <div id="food-menu-carousel" class="menu-carousel owl-carousel image-carousel food-menu-carousel carousel-widget customjs">
+                                {% for product in products %}
+                                <div class="oc-item" style="padding: 30px;">
+                                    <img class="topmargin-sm" src="/media/{{ product.image }}" alt="Image 1">
+                                    <div class="food-content clearfix">
+                                        <div class="heading-block border-bottom-0 mb-0">
+                                            <h3 class="font-secondary nott">{{ product.title }}</h3>
+                                        </div>
+                                        <div class="food-price color font-primary mt-3">$ {{ product.price|intcomma }}</div>
+                                        <p class="mb-0">{{ product.content }}</p>
+                                        <a href="/showProduct/{{product.id}}" class="more-link">Ver Detalle <i class="icon-line-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                                {% endfor %}
 
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/1.jpg' %}" alt="Image 1">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;19.99</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/2.jpg' %}" alt="Image 2">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;11.59</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/3.jpg' %}" alt="Image 3">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;8.99</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/4.jpg' %}" alt="Image 4">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;22.99</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/5.jpg' %}" alt="Image 1">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;19.99</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/6.jpg' %}" alt="Image 2">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;14.99</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    <div class="food-price color font-primary mt-3">&dollar;14.99</div>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/7.jpg' %}" alt="Image 3">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;11.99</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/8.jpg' %}" alt="Image 4">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;33.99</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="oc-item">
-                                <img class="topmargin-sm" src="{% static 'images/items/food/9.jpg' %}" alt="Image 4">
-                                <div class="food-content clearfix">
-                                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between mb-4">
-                                        <div class="heading-block border-bottom-0 mb-0">
-                                            <h3 class="font-secondary nott">Lorem ipsum dolor sit amet.</h3>
-                                        </div>
-                                        <div class="food-price color font-primary mt-3">&dollar;7.99</div>
-                                    </div>
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                    <a href="menu.html" class="more-link">See More Details <i class="icon-line-arrow-right"></i></a>
-                                </div>
                             </div>
                         </div>
                     </div>

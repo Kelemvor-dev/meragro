@@ -34,7 +34,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home:home')
+            return redirect('users:profile')
         else:
             messages.warning(request, 'Usuario o contraseña incorrectos')
             return redirect('users:userlogin')
