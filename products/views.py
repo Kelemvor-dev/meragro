@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
-from .models import Product, Category
+from .models import Product, Category, ShoppingCart
 
 from .forms import CreateProductForm, EditProductForm
 from users.models import UserProfile
@@ -85,3 +85,30 @@ def DeleteProductView(request, id):
     product.delete()
     messages.success(request, 'Se eliminaron los datos correctamente')
     return redirect('users:profile')
+
+
+def SaveShoppingCart(request, idProduct):
+    idUser = UserProfile.objects.get(pk=request.user.id)
+    product = Product.objects.get(id=idProduct)
+    if request.method == "POST":
+        amount = request.POST['amount']
+        unit_price = request.POST['unit_price']
+        sku = request.POST['sku']
+        id_product = product
+        id_user = idUser
+        try:
+            ShoppingCart.objects.create(
+                amount=amount,
+                unit_price=unit_price,
+                sku=sku,
+                id_product=id_product,
+                id_user=id_user,
+            )
+            messages.success(request, 'Has añadido el producto a tu carrito de compras')
+            return redirect('/showProduct/' + idProduct)
+        except Exception as e:
+            print(e)
+            return JsonResponse({'detail': f'{e}'})
+    else:
+        messages.error(request, "Hay un error en la petición")
+        return redirect('products:showProduct/' + idProduct)

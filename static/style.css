@@ -16753,3 +16753,8 @@ label.checkbox { padding-left: 20px; }
     float: right;
     margin: 10px 3px;
 }
+.btn-delete-cart-mer{
+    color: red;
+    margin-left: 10px;
+    font-size: 17px;
+}

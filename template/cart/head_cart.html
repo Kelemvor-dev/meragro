@@ -1,0 +1,32 @@
+{% load static i18n %}
+{% load humanize %}
+<!-- Top Cart ============================================= -->
+<div id="top-cart" class="header-misc-icon d-none d-sm-block cart-mer-button">
+    <a href="#" id="top-cart-trigger"><i class="bi-cart4"></i><span class="top-cart-number">{{ countProduct.id_product__count }}</span></a>
+    <div class="top-cart-content">
+        <div class="top-cart-title">
+            <h4>Carrito de compras</h4>
+        </div>
+        <div class="top-cart-items">
+            {% for product in carts %}
+            <div class="top-cart-item">
+                <div class="top-cart-item-image">
+                    <a href="#"><img src="{{ product.id_product.image.url }}" alt="Blue Round-Neck Tshirt"/></a>
+                </div>
+                <div class="top-cart-item-desc">
+                    <div class="top-cart-item-desc-title">
+                        <a href="#">{{ product.id_product.title}}</a>
+                        <span class="top-cart-item-price d-block">$ {{ product.unit_price|intcomma }}</span>
+                    </div>
+                    <div class="top-cart-item-quantity">x {{ product.amount }}</div>
+                    <a href="#" class="remove" title="Remove this item"><i class="icon-trash2 btn-delete-cart-mer"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="top-cart-action">
+            <span class="top-checkout-price">$ {{ totalPrice|intcomma }}</span>
+            <a href="#" class="button button-3d button-small m-0">Ir a comprar</a>
+        </div>
+    </div>
+</div><!-- #top-cart end -->
