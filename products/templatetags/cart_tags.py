@@ -7,14 +7,15 @@ register = template.Library()
 
 @register.inclusion_tag('cart/head_cart.html')
 def headerCart(userId):
-    products = ShoppingCart.objects.select_related('id_product').filter(id_user_id=userId)
-    count = ShoppingCart.objects.select_related('id_product').filter(id_user_id=userId).aggregate(Count('id_product'))
+    products = ShoppingCart.objects.select_related('id_product').filter(id_user_id=userId, state=0)
+    count = ShoppingCart.objects.select_related('id_product').filter(id_user_id=userId, state=0).aggregate(
+        Count('id_product'))
     price = 0
     for product in products:
         price = price + product.amount * product.unit_price
 
     return {
-        'carts': ShoppingCart.objects.select_related().filter(id_user_id=userId),
+        'carts': ShoppingCart.objects.select_related().filter(id_user_id=userId, state=0),
         'totalPrice': price,
         'countProduct': count
     }

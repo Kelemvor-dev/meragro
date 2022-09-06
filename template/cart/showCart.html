@@ -1,0 +1,114 @@
+{% extends "index.html" %}
+{% load static i18n %}
+{% load humanize %}
+{% load mathfilters %}
+
+{% block main %}
+<div class="section mb-0" style="padding: 60px 0; border-top: 1px solid #EEE;">
+    <div class="container clearfix">
+        <div class="heading-block center mb-0 border-bottom-0">
+            <h3 class="nott font-secondary ls0" style="font-size: 60px;">{{ product.title }}</h3>
+        </div>
+    </div>
+</div>
+<section id="content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-dismissible {{ message.tags }} mb-0">
+                            {{ message }}
+                            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"
+                                    aria-hidden="true"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="content-wrap">
+            <div class="container">
+                <form id="cart-form" name="cart-form" action="{% url 'products:cartSuccess' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table class="table cart mb-5">
+                        <thead>
+                        <tr>
+                            <th class="cart-product-remove">&nbsp;</th>
+                            <th class="cart-product-thumbnail">&nbsp;</th>
+                            <th class="cart-product-name">Nombre</th>
+                            <th class="cart-product-price">Precio por Unidad</th>
+                            <th class="cart-product-quantity">Cantidad</th>
+                            <th class="cart-product-subtotal">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
+                        <tr class="cart_item">
+                            <td class="cart-product-remove">
+                                <a href="/deleteCartProduct/{{ product.id }}" class="remove" title="Remove this item"><i class="icon-trash2"></i></a>
+                            </td>
+
+                            <td class="cart-product-thumbnail">
+                                <a href="#"><img width="64" height="64" src="{{ product.id_product.image.url }}" alt="Pink Printed Dress"></a>
+                            </td>
+
+                            <td class="cart-product-name">
+                                <a href="#">{{ product.id_product.title}}</a>
+                            </td>
+
+                            <td class="cart-product-price">
+                                <span class="amount">{{ product.unit_price|intcomma }}</span>
+                            </td>
+
+                            <td class="cart-product-quantity">
+                                <div class="quantity">
+                                    <b>{{ product.amount }}</b>
+                                </div>
+                            </td>
+
+                            <td class="cart-product-subtotal">
+                                <span class="amount">$ {{ product.unit_price|mul:product.amount|intcomma }}</span>
+                            </td>
+                        </tr>
+                        <input type="hidden" name="cartId[]" value="{{ product.id }}">
+                        {% endfor %}
+                        <tr class="cart_item">
+                            <td colspan="6">
+                                <div class="row justify-content-between py-2 col-mb-30">
+                                    <div class="col-lg-auto pe-lg-0">
+                                        <button type="submit" class="button button-3d mt-2 mt-sm-0 me-0">Finalizar compra</button>
+                                    </div>
+                                    <div class="col-lg-auto ps-lg-0">
+                                        <div class="row" style="width: 300px;">
+                                            <div class="col-md-4">
+                                                <b>Total:</b>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>$ {{ price|intcomma }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div style="position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3; background: url('{% static 'images/sketch-header.png' %}') repeat center bottom; background-size: auto 100%; height: 40px; margin-bottom: -10px;"></div>
+</section>
+<div class="section mb-0" style="padding: 60px 0; border-top: 1px solid #EEE;">
+    <div class="container clearfix">
+        <div class="heading-block center mb-0 border-bottom-0">
+        </div>
+    </div>
+</div>
+{% endblock %}

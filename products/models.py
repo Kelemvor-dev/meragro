@@ -32,6 +32,7 @@ class ShoppingCart(models.Model):
     unit_price = models.IntegerField(blank=False, null=False)
     sku = models.CharField(max_length=200, blank=False, null=False)
     register_date = models.DateTimeField(default=timezone.now)
+    state = models.IntegerField(blank=False, null=False, default=0, editable=True)
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
     id_user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 

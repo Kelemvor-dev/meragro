@@ -19,14 +19,13 @@
                         <span class="top-cart-item-price d-block">$ {{ product.unit_price|intcomma }}</span>
                     </div>
                     <div class="top-cart-item-quantity">x {{ product.amount }}</div>
-                    <a href="#" class="remove" title="Remove this item"><i class="icon-trash2 btn-delete-cart-mer"></i></a>
                 </div>
             </div>
             {% endfor %}
         </div>
         <div class="top-cart-action">
             <span class="top-checkout-price">$ {{ totalPrice|intcomma }}</span>
-            <a href="#" class="button button-3d button-small m-0">Ir a comprar</a>
+            <a href="/showCart" class="button button-3d button-small m-0">Ir a comprar</a>
         </div>
     </div>
 </div><!-- #top-cart end -->

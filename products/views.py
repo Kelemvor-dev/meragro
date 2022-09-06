@@ -1,5 +1,6 @@
 import uuid
 
+from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -87,6 +88,13 @@ def DeleteProductView(request, id):
     return redirect('users:profile')
 
 
+def DeleteCartProductView(request, id):
+    cart = ShoppingCart.objects.get(id=id)
+    cart.delete()
+    messages.success(request, 'Se eliminaron los datos correctamente')
+    return redirect('products:showCart')
+
+
 def SaveShoppingCart(request, idProduct):
     idUser = UserProfile.objects.get(pk=request.user.id)
     product = Product.objects.get(id=idProduct)
@@ -112,3 +120,28 @@ def SaveShoppingCart(request, idProduct):
     else:
         messages.error(request, "Hay un error en la petición")
         return redirect('products:showProduct/' + idProduct)
+
+
+def ShowCartView(request):
+    products = ShoppingCart.objects.select_related('id_product').filter(id_user_id=request.user.id, state=0)
+    count = ShoppingCart.objects.select_related('id_product').filter(id_user_id=request.user.id, state=0).aggregate(
+        Count('id_product'))
+    price = 0
+    for product in products:
+        price = price + product.amount * product.unit_price
+    return render(request, "cart/showCart.html", {'products': products, 'count': count, 'price': price})
+
+
+# Los estados son 0 = carrito de compras, 1 = Producto Solicitado para comprar, 2 = Finalizacion de la compra del producto
+def cartSuccessView(request):
+    if request.method == "POST":
+        ids = request.POST.getlist('cartId[]')
+        for id in ids:
+            cart = ShoppingCart.objects.get(id=id)
+            cart.state = 1
+            cart.save()
+        messages.success(request, 'La petición de compra se realizó con éxito pronto se contactarán con usted')
+        return redirect('users:profile')
+    else:
+        messages.error(request, "Hay un error en la petición")
+        return redirect('products:showCart')
