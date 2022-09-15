@@ -16758,3 +16758,38 @@ label.checkbox { padding-left: 20px; }
     margin-left: 10px;
     font-size: 17px;
 }
+.divider-text-mer{
+    color: #337b7c;
+    padding: 8px;
+}
+.status-shop-susses-mer{
+    padding: 10px;
+    background-color: #d4edda;
+}
+.status-shop-warning-mer{
+    padding: 10px;
+    background-color: #fff3cd;
+}
+.status-shop-canceled-mer{
+    padding: 10px;
+    background-color: #f8d7da;
+}
+.text-shop-status-warning-mer{
+    margin: 0px;
+    color: #856404;
+}
+.text-shop-status-susses-mer{
+    margin: 0px;
+    color: #155724;
+}
+.text-shop-status-canceled-mer{
+    margin: 0px;
+    color: #721c24;
+}
+.card-cart-item-mer{
+    padding: 11px !important;
+    border: solid;
+    border-width: 1px;
+    border-color: #337b7c;
+    margin-bottom: 10px !important;
+}

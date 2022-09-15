@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
-from .models import Product, Category, ShoppingCart
+from .models import Product, Category, ShoppingCart, Orders
 
 from .forms import CreateProductForm, EditProductForm
 from users.models import UserProfile
@@ -132,16 +132,42 @@ def ShowCartView(request):
     return render(request, "cart/showCart.html", {'products': products, 'count': count, 'price': price})
 
 
-# Los estados son 0 = carrito de compras, 1 = Producto Solicitado para comprar, 2 = Finalizacion de la compra del producto
+# Los estados son 0 = carrito de compras, 1 = Producto Solicitado para comprar, 2 = Finalizacion de la compra del producto, 3 = Producto cancelado
 def cartSuccessView(request):
     if request.method == "POST":
-        ids = request.POST.getlist('cartId[]')
-        for id in ids:
-            cart = ShoppingCart.objects.get(id=id)
+        idUser = UserProfile.objects.get(pk=request.user.id)
+        order = Orders.objects.create(
+            id_user=idUser,
+        )
+        carts = request.POST.getlist('cartId[]')
+        for cart in carts:
+            cart = ShoppingCart.objects.get(id=cart)
             cart.state = 1
             cart.save()
+            order.id_shoppingcart.add(cart)
+
         messages.success(request, 'La petición de compra se realizó con éxito pronto se contactarán con usted')
         return redirect('users:profile')
     else:
         messages.error(request, "Hay un error en la petición")
         return redirect('products:showCart')
+
+
+def ShopCartProductView(request, id):
+    cart = ShoppingCart.objects.get(id=id)
+    cart.id = id
+    cart.state = 2
+    cart.save()
+
+    messages.success(request, 'Se ha finalizado la compra con éxito')
+    return redirect('users:profile')
+
+
+def CancelCartProductView(request, id):
+    cart = ShoppingCart.objects.get(id=id)
+    cart.id = id
+    cart.state = 3
+    cart.save()
+
+    messages.success(request, 'Se ha cancelado la compra con éxito')
+    return redirect('users:profile')

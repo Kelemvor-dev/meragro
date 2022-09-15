@@ -20,4 +20,7 @@ urlpatterns = [
     path('saveShoppingCart/<idProduct>', views.SaveShoppingCart, name='saveShoppingCart'),
     path('cartSuccess', views.cartSuccessView, name='cartSuccess'),
     path('deleteCartProduct/<id>', views.DeleteCartProductView, name='deleteCartProduct'),
+    path('shopCartProduct/<id>', views.ShopCartProductView, name='shopCartProduct'),
+    path('cancelCartProduct/<id>', views.CancelCartProductView, name='cancelCartProduct'),
+
 ]

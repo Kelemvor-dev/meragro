@@ -38,3 +38,13 @@ class ShoppingCart(models.Model):
 
     def __str__(self):
         return self.sku
+
+
+class Orders(models.Model):
+    id = models.AutoField(primary_key=True),
+    register_date = models.DateTimeField(default=timezone.now)
+    id_user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    id_shoppingcart = models.ManyToManyField(ShoppingCart)
+
+    def __str__(self):
+        return self.id

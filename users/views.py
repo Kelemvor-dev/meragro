@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .models import UserProfile
 
 from .forms import UserLoginForm, UserSignUpForm, UserEditProfileForm
-from products.models import Product
+from products.models import Product, Orders, ShoppingCart
 
 
 def accontView(request):
@@ -82,11 +82,32 @@ def logout_view(request):
     return redirect('home:home')
 
 
+# Los estados son 0 = carrito de compras, 1 = Producto Solicitado para comprar, 2 = Finalizacion de la compra del producto, 3 = Producto cancelado
 @login_required(login_url='home:home')
 def profile_view(request):
     user_id = UserProfile.objects.get(pk=request.user.id)
     products = Product.objects.filter(id_user_id=user_id)
-    return render(request, 'user/profile.html', {'products': products})
+    orders = Orders.objects.filter(id_user_id=user_id)
+    # Productos del perfil Comprador con estado diferente de 0
+    productsOrder = Orders.objects.raw(
+        "select po.id, pp.title, po.register_date, pois.orders_id as order_id, ps.amount, ps.unit_price, ps.state from products_orders po  \n" +
+        "inner join products_orders_id_shoppingcart pois on pois.orders_id = po.id \n" +
+        "inner join products_shoppingcart ps on pois.shoppingcart_id = ps.id \n" +
+        "inner join products_product pp on pp.id = ps.id_product_id \n" +
+        "where ps.state = 1 or ps.state = 2 or ps.state = 3")
+    # productos del perfil vendedor para finalizar su venta con estado diferente de 0
+    productsSellOrder = Orders.objects.raw(
+        "select ps.id, pp.title, pp.image, ps.amount, ps.unit_price, ps.register_date, ps.state, uu.first_name, uu.last_name, uu.phone  \n" +
+        "from products_product pp  \n" +
+        "inner join products_shoppingcart ps on pp.id = ps.id_product_id  \n" +
+        "inner join users_userprofile uu on uu.id = ps.id_user_id  \n" +
+        "where pp.id_user_id = %s and ps.state != 0 order by uu.id ", [request.user.id])
+    return render(request, 'user/profile.html', {
+        'products': products,
+        'orders': orders,
+        'productsOrder': productsOrder,
+        'productsSellOrder': productsSellOrder
+    })
 
 
 def editUsuProfile(request):
