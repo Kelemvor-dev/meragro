@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
-from .models import Product, Category, ShoppingCart, Orders
+from .models import Product, Category, ShoppingCart, Orders, Question, Asnwer
 
 from .forms import CreateProductForm, EditProductForm
 from users.models import UserProfile
@@ -25,7 +25,24 @@ def CreateProductView(request):
 def ShowProductView(request, id):
     product = Product.objects.get(id=id)
     sku = str(uuid.uuid4().fields[-1])[:5] + 'ID' + id
-    return render(request, "product/show_product.html", {'product': product, 'sku': sku})
+    questions = Orders.objects.raw(
+        "select pq.id, pq.question, pq.register_date, pq.product_id, uu.profile_pic, uu.first_name, uu.last_name from products_question pq  \n" +
+        "inner join products_product pp on pp.id = pq.product_id  \n" +
+        "inner join users_userprofile uu on uu.id = pq.user_id "
+        "where pq.product_id = %s", [id])
+
+    asnwers = Orders.objects.raw(
+        "select pa.id, pa.asnwer, pa.register_date, pa.question_id, uu.profile_pic, uu.first_name, uu.last_name from products_asnwer pa \n" +
+        "inner join products_question pq on pa.question_id = pq.id  \n" +
+        "inner join users_userprofile uu on uu.id = pa.user_id "
+        "where pq.product_id = %s", [id])
+
+    return render(request, "product/show_product.html",
+                  {'product': product,
+                   'sku': sku,
+                   'questions': questions,
+                   'asnwers': asnwers,
+                   })
 
 
 def EditProductView(request, id):
@@ -171,3 +188,41 @@ def CancelCartProductView(request, id):
 
     messages.success(request, 'Se ha cancelado la compra con éxito')
     return redirect('users:profile')
+
+
+def SaveQuestion(request, idP):
+    if request.method == "POST":
+        question = request.POST['question']
+        try:
+            Question.objects.create(
+                question=question,
+                product_id=idP,
+                user_id=request.user.id,
+            )
+            messages.success(request, 'Pregunta enviada con éxito')
+            return redirect('/showProduct/' + idP)
+        except Exception as e:
+            print(e)
+            return JsonResponse({'detail': f'{e}'})
+    else:
+        messages.error(request, "Hay un error en la petición")
+        return redirect('products:showProduct/' + idP)
+
+
+def SaveAsnwer(request, idQ, idP):
+    if request.method == "POST":
+        asnwer = request.POST['asnwer']
+        try:
+            Asnwer.objects.create(
+                asnwer=asnwer,
+                question_id=idQ,
+                user_id=request.user.id,
+            )
+            messages.success(request, 'Respuesta enviada con éxito')
+            return redirect('/showProduct/' + idP)
+        except Exception as e:
+            print(e)
+            return JsonResponse({'detail': f'{e}'})
+    else:
+        messages.error(request, "Hay un error en la petición")
+        return redirect('products:showProduct/' + idP)

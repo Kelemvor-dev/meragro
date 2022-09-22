@@ -23,4 +23,9 @@ urlpatterns = [
     path('shopCartProduct/<id>', views.ShopCartProductView, name='shopCartProduct'),
     path('cancelCartProduct/<id>', views.CancelCartProductView, name='cancelCartProduct'),
 
+    # Modulo PQR
+    path('saveQuestion/<idP>', views.SaveQuestion, name='saveQuestion'),
+    path('saveAsnwer/<idQ>/<idP>', views.SaveAsnwer, name='saveAsnwer'),
+
+
 ]

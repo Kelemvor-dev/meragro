@@ -87,7 +87,7 @@ def logout_view(request):
 def profile_view(request):
     user_id = UserProfile.objects.get(pk=request.user.id)
     products = Product.objects.filter(id_user_id=user_id)
-    orders = Orders.objects.filter(id_user_id=user_id)
+    orders = Orders.objects.filter(id_user_id=user_id).order_by('-register_date')
     # Productos del perfil Comprador con estado diferente de 0
     productsOrder = Orders.objects.raw(
         "select po.id, pp.title, po.register_date, pois.orders_id as order_id, ps.amount, ps.unit_price, ps.state from products_orders po  \n" +

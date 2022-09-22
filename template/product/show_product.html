@@ -46,27 +46,27 @@
                                 <ins class="fw-semibold" style="font-size: 40px;">$ {{ product.price|intcomma }}</ins>
                             </div>
                             {% if user.is_authenticated %}
-                                {% if user.id_rol == '3' %}
-                                    <div class="line"></div>
-                                    <!-- Product Single - Quantity & Cart Button
-                                    ============================================= -->
-                                    <form class="cart mb-0" action="/saveShoppingCart/{{product.id}}" method="post" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <div class="quantity clearfix">
-                                            <input type="button" value="-" class="minus">
-                                            <input type="text" step="1" min="1" name="amount" value="1" title="Qty" class="qty" size="4">
-                                            <input type="button" value="+" class="plus">
-                                        </div>
-                                        <input type="hidden" name="sku" value="{{ sku }}">
-                                        <input type="hidden" name="unit_price" value="{{ product.price }}">
-                                        <button type="submit" class="add-to-cart button m-0">Añadir al carrito</button>
-                                    </form><!-- Product Single - Quantity & Cart Button End -->
-                                    <div class="line"></div>
-                                {% endif %}
+                            {% if user.id_rol == '3' %}
+                            <div class="line"></div>
+                            <!-- Product Single - Quantity & Cart Button
+                            ============================================= -->
+                            <form class="cart mb-0" action="/saveShoppingCart/{{product.id}}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="quantity clearfix">
+                                    <input type="button" value="-" class="minus">
+                                    <input type="text" step="1" min="1" name="amount" value="1" title="Qty" class="qty" size="4">
+                                    <input type="button" value="+" class="plus">
+                                </div>
+                                <input type="hidden" name="sku" value="{{ sku }}">
+                                <input type="hidden" name="unit_price" value="{{ product.price }}">
+                                <button type="submit" class="add-to-cart button m-0">Añadir al carrito</button>
+                            </form><!-- Product Single - Quantity & Cart Button End -->
+                            <div class="line"></div>
+                            {% endif %}
                             {% else %}
-                                <h3>Debe haber iniciado sesión para poder comprar este producto</h3>
-          						<a href="{% url 'users:userlogin' %}" class="button button-mini button-border button-rounded"><i class="icon-user4"></i>Login</a>
-          					{% endif %}
+                            <h3>Debe haber iniciado sesión para poder comprar este producto</h3>
+                            <a href="{% url 'users:userlogin' %}" class="button button-mini button-border button-rounded"><i class="icon-user4"></i>Login</a>
+                            {% endif %}
 
                             <p>{{ product.content }}</p>
                             <div class="card product-meta mb-0">
@@ -79,6 +79,68 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-10 col-md-10" style="margin-bottom: 39px;">
+                {% if user.is_authenticated %}
+                    {% if user.id != product.id_user_id %}
+                        <form class="row" action="/saveQuestion/{{product.id}}" method="post">
+                            {% csrf_token %}
+                            <div class="col-md-10">
+                                <input type="text" name="question" class="form-control" style="margin-top: 10px;">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="button button-border button-rounded button-amber">Enviar pregunta</button>
+                            </div>
+                        </form>
+                    {% endif %}
+                {% endif %}
+                {% for question in questions %}
+                {% if question.product_id == product.id %}
+                    <div class="comment-wrap clearfix" style=" margin-top: 30px">
+                        <div class="comment-meta">
+                            <div class="comment-author vcard">
+                                <span class="comment-avatar clearfix"><img alt="" src="/media/{{ question.profile_pic }}" height="60" width="60"></span>
+                            </div>
+                        </div>
+                        <div class="comment-content clearfix">
+                            <div class="comment-author">{{ question.first_name }} {{ question.last_name }}<span>{{ question.register_date|date:'d-m-Y' }}</span></div>
+                            <p>{{ question.question }}</p>
+                        </div>
+
+                        {% if user.is_authenticated %}
+                            {% if user.id == product.id_user_id %}
+                                <form class="row" action="/saveAsnwer/{{question.id}}/{{product.id}}" method="post">
+                                    {% csrf_token %}
+                                    <div class="col-md-8">
+                                        <input type="text" name="asnwer" class="form-control" style="margin-top: 10px;">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="button button-border button-rounded button-amber">Enviar respuesta</button>
+                                    </div>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                        {% for asnwer in asnwers %}
+                            {% if asnwer.question_id == question.id %}
+                                <div class="divider divider-right" style="margin: 10px 0px 10px 0px;"><i class="icon-comment"></i></div>
+                                <div id="comment-1" class="comment-wrap clearfix">
+                                    <div class="comment-meta">
+                                        <div class="comment-author vcard">
+                                            <span class="comment-avatar clearfix"><img alt="" src="/media/{{ asnwer.profile_pic }}" height="60" width="60"></span>
+                                        </div>
+                                    </div>
+                                    <div class="comment-content clearfix">
+                                        <div class="comment-author">{{ asnwer.first_name }} {{ asnwer.last_name }}<span>{{ asnwer.register_date|date:'d-m-Y' }}</span></div>
+                                        <p>{{ asnwer.asnwer }}</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% endfor %}
+                <div class="clear"></div>
             </div>
         </div>
     </div>

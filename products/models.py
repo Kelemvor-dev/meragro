@@ -48,3 +48,25 @@ class Orders(models.Model):
 
     def __str__(self):
         return self.id
+
+
+class Question(models.Model):
+    id = models.AutoField(primary_key=True),
+    question = models.TextField(blank=False, null=False)
+    register_date = models.DateTimeField(default=timezone.now)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.id
+
+
+class Asnwer(models.Model):
+    id = models.AutoField(primary_key=True),
+    asnwer = models.TextField(blank=False, null=False)
+    register_date = models.DateTimeField(default=timezone.now)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.id

@@ -34,8 +34,7 @@
                 <div class="col-md-4">
 
                     <div class="well well-lg mb-0">
-                        <form id="login-form" name="login-form" class="row" action="{% url 'users:login' %}"
-                              method="post">
+                        <form id="login-form" name="login-form" class="row" action="{% url 'users:login' %}" method="post">
 
                             {% csrf_token %}
                             <div class="col-12">
