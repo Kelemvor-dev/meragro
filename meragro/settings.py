@@ -90,16 +90,22 @@ WSGI_APPLICATION = 'meragro.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-TESTING = sys.argv[1:2] == ['test']
-if TESTING==False:
-    DATABASES = {
-        'default': {
+
+"""'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'd9k5fddq9mjhn8',
             'HOST': 'ec2-54-208-104-27.compute-1.amazonaws.com',
             'USER': 'qreipjxekwrhxx',
             'PASSWORD': '9bb9964fcedb0a1c3d250d6904e0a0eb315eab613ea5db79ca5414c34ed67a71',
             'DATABSE_PORT': '5432',
+        }"""
+        
+TESTING = sys.argv[1:2] == ['test']
+if TESTING==False:
+    DATABASES = {
+        'default': {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / 'meragro.sqlite3',
         }
     }
 else:

@@ -79,7 +79,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         Vendedor = 2
         Comprador = 3
 
-    id_rol = models.IntegerField(choices=Roles.choices)
+    id_rol = models.IntegerField(choices=Roles.choices, default=3)
 
     slug = models.SlugField(max_length=255, unique=True)
 
